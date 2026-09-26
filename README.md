@@ -8,6 +8,7 @@ Kho tài liệu của đồ án môn **SE373 — AI Agentic**, Trường Đại 
 
 ```
 docs/
+├── TEAM_CHARTER.md              # Thỏa ước thành viên nhóm (Team Charter)
 ├── SRS_IELTS_Agent_SE373.md     # Software Requirements Specification (bản chính)
 ├── diagrams/                     # Sơ đồ UML xuất ra ảnh
 │   ├── use-case-diagram.png
@@ -19,6 +20,7 @@ docs/
 
 | Tài liệu | Phiên bản | Trạng thái | Mô tả |
 |----------|-----------|------------|-------|
+| [TEAM_CHARTER.md](TEAM_CHARTER.md) | 1.0 | Đã ban hành | Thỏa ước hoạt động nhóm, vai trò 5 thành viên, quy chuẩn giao tiếp, nhịp độ sprint và quy trình giải quyết xung đột |
 | [SRS_IELTS_Agent_SE373.md](docs/SRS_IELTS_Agent_SE373.md) | 1.0 | Chờ review | Đặc tả yêu cầu phần mềm đầy đủ theo template [jam01/SRS-Template](https://github.com/jam01/SRS-Template) (ISO/IEC/IEEE 29148) |
 
 ## Quy ước
