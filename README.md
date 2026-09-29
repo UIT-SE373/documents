@@ -2,24 +2,24 @@
 
 Kho tài liệu của đồ án môn **SE373 — AI Agentic**, Trường Đại học Công nghệ Thông tin (UIT).
 
-**Đề tài:** IELTS Learning Agent — hệ thống Multi-Agent chấm và phản hồi bài viết IELTS Writing Task 1 & Task 2, xây dựng trên LangGraph.
+**Đề tài:** IELTS Writing Agent — hệ thống Multi-Agent chuyên biệt cho kỹ năng viết (Writing skill only), chấm và phản hồi bài viết IELTS Writing Task 1 & Task 2, xây dựng trên LangGraph.
 
 ## Cấu trúc
 
 ```
-docs/
-├── SRS_IELTS_Agent_SE373.md     # Software Requirements Specification (bản chính)
-├── diagrams/                     # Sơ đồ UML xuất ra ảnh
-│   ├── use-case-diagram.png
-│   └── activity-diagram.png
-└── adr/                          # Architecture Decision Records
+documents/
+├── SRS/
+│   ├── SRS_IELTS_Writing_Agent_SE373_v2.md  # Software Requirements Specification v2.1 (bản chính)
+│   └── SRS_IELTS_Writing_Agent_SE373_v1.md  # Bản v1 lưu trữ
+├── diagrams/                                 # Sơ đồ UML xuất ra ảnh
+└── adr/                                      # Architecture Decision Records
 ```
 
 ## Tài liệu hiện có
 
 | Tài liệu | Phiên bản | Trạng thái | Mô tả |
 |----------|-----------|------------|-------|
-| [SRS_IELTS_Agent_SE373.md](docs/SRS_IELTS_Agent_SE373.md) | 1.0 | Chờ review | Đặc tả yêu cầu phần mềm đầy đủ theo template [jam01/SRS-Template](https://github.com/jam01/SRS-Template) (ISO/IEC/IEEE 29148) |
+| [SRS_IELTS_Writing_Agent_SE373_v2.md](SRS/SRS_IELTS_Writing_Agent_SE373_v2.md) | 2.1 | Đã hoàn thiện | Đặc tả yêu cầu phần mềm đầy đủ theo template [jam01/SRS-Template](https://github.com/jam01/SRS-Template) (ISO/IEC/IEEE 29148), chuyên biệt kỹ năng viết Task 1 & Task 2 |
 
 ## Quy ước
 
