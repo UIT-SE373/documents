@@ -7,12 +7,13 @@ Kho tài liệu của đồ án môn **SE373 — AI Agentic**, Trường Đại 
 ## Cấu trúc
 
 ```
-documents/
-├── SRS/
-│   ├── SRS_IELTS_Writing_Agent_SE373_v2.md  # Software Requirements Specification v2.1 (bản chính)
-│   └── SRS_IELTS_Writing_Agent_SE373_v1.md  # Bản v1 lưu trữ
-├── diagrams/                                 # Sơ đồ UML xuất ra ảnh
-└── adr/                                      # Architecture Decision Records
+docs/
+├── TEAM_CHARTER.md              # Thỏa ước thành viên nhóm (Team Charter)
+├── SRS_IELTS_Agent_SE373.md     # Software Requirements Specification (bản chính)
+├── diagrams/                     # Sơ đồ UML xuất ra ảnh
+│   ├── use-case-diagram.png
+│   └── activity-diagram.png
+└── adr/                          # Architecture Decision Records
 ```
 
 ## Tài liệu hiện có
