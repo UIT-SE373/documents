@@ -19,7 +19,7 @@ documents/
 
 | Tài liệu | Phiên bản | Trạng thái | Mô tả |
 |----------|-----------|------------|-------|
-| [SRS_IELTS_Writing_Agent_SE373_v2.md](SRS/SRS_IELTS_Writing_Agent_SE373_v2.md) | 2.1 | Đã hoàn thiện | Đặc tả yêu cầu phần mềm đầy đủ theo template [jam01/SRS-Template](https://github.com/jam01/SRS-Template) (ISO/IEC/IEEE 29148), chuyên biệt kỹ năng viết Task 1 & Task 2 |
+| [SRS_IELTS_Writing_Agent_SE373_v2.md](SRS/SRS_IELTS_Writing_Agent_SE373_v2.md) | 2.0 | Đã hoàn thiện | Đặc tả yêu cầu phần mềm đầy đủ theo template [jam01/SRS-Template](https://github.com/jam01/SRS-Template) (ISO/IEC/IEEE 29148), chuyên biệt kỹ năng viết Task 1 & Task 2 |
 
 ## Quy ước
 
