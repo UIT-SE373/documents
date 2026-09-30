@@ -1,0 +1,312 @@
+<mxfile host="app.diagrams.net" scale="1" border="0">
+  <diagram name="Page-1" id="g_0elN9phN0AYFUSmqhz">
+    <mxGraphModel dx="3377" dy="1503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4000" pageHeight="2200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#0F172A;" value="IELTS Writing Agent — System_Architecture &amp;amp; Pipeline_Langgraph&lt;font color=&quot;#1f2328&quot; face=&quot;Monaspace Neon, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace&quot;&gt;&lt;span style=&quot;font-size: 11.9px; font-weight: 400; white-space: break-spaces; background-color: rgba(129, 139, 152, 0.12);&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="3900" x="40" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="box_frontend" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=15;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;dashed=1;" value="&lt;b&gt;1. User &amp;amp; Presentation Subsystem (Web UI Layer)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="1950" width="420" x="40" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_learner" parent="1" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=12;align=left;spacingLeft=10;" value="&lt;b&gt;Learner (Thí sinh)&lt;/b&gt;&lt;br&gt;• Nộp bài Task 1 Academic / Task 2 Essay&lt;br&gt;• Upload ảnh biểu đồ sơ đồ (PNG/JPG ≤ 5MB)&lt;br&gt;• Xem điểm 4 tiêu chí &amp;amp; Overall Writing Band&lt;br&gt;• Xem Highlight lỗi Clickable + Gợi ý sửa&lt;br&gt;• Nhận Actionable Plan &amp;amp; Gửi khiếu nại điểm" vertex="1">
+          <mxGeometry height="120" width="360" x="70" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="actor_admin" parent="1" style="rounded=1;arcSize=4;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=12;align=left;spacingLeft=10;" value="&lt;b&gt;Administrator (Quản trị viên)&lt;/b&gt;&lt;br&gt;• Cấu hình Rate Limit động (10/h, 30/day)&lt;br&gt;• Giám sát ngân sách API Token ($50/tháng)&lt;br&gt;• Xử lý hàng đợi bài bị khiếu nại / gắn cờ&lt;br&gt;• Kích hoạt Regression Eval trên Gold Set" vertex="1">
+          <mxGeometry height="110" width="360" x="70" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="web_ui" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Web UI (React SPA / Tailwind CSS)&lt;/b&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;&lt;b&gt;• S1 Submit View:&lt;/b&gt; Real-time Word Counter (UI-1), Upload Widget (UI-2), Task Type Selector.&lt;br&gt;&lt;b&gt;• S2 Live Grading View:&lt;/b&gt; Real-time SSE Progress Tracker (UI-3), Node Status Indicators.&lt;br&gt;&lt;b&gt;• S3 Result &amp;amp; Feedback View:&lt;/b&gt; Overall/Task Band Score, Clickable Error Spans Tooltips (UI-4/5), Verbatim Quotes Viewer (UI-6), Disclaimer Notice (UI-7), Dispute Button (UI-8).&lt;br&gt;&lt;b&gt;• S4 History View:&lt;/b&gt; Historical Submissions List, Band Score Progress Charts, Top 5 Repeated Errors (UI-10).&lt;br&gt;&lt;b&gt;• S5 Admin Dashboard:&lt;/b&gt; Token Cost Analytics, Dispute Resolution Queue, Dynamic Rate Limit Configuration UI." vertex="1">
+          <mxGeometry height="360" width="360" x="70" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="box_gateway" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=15;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;dashed=1;" value="&lt;b&gt;2. API &amp;amp; Ingestion Subsystem (FastAPI Core)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="1950" width="440" x="510" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="api_gateway" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;FastAPI API Gateway (IF-1)&lt;/b&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;• &lt;b&gt;Security:&lt;/b&gt; JWT Auth, RBAC, HTTPS/TLS 1.2+&lt;br&gt;• &lt;b&gt;Rate Limit:&lt;/b&gt; Sliding window via Redis (10/h, 30/day)&lt;br&gt;• &lt;b&gt;Idempotency:&lt;/b&gt; Header `Idempotency-Key` (24h lookup)&lt;br&gt;• &lt;b&gt;API Endpoints Defined:&lt;/b&gt;&lt;br&gt;  - `POST /api/v1/submissions` → 202 Accepted&lt;br&gt;  - `GET /api/v1/submissions/{id}/stream` (SSE)&lt;br&gt;  - `POST /api/v1/uploads/images` (MinIO Upload)&lt;br&gt;  - `POST /api/v1/submissions/{id}/dispute`&lt;br&gt;  - `GET /api/v1/admin/usage` &amp;amp; `PUT /admin/config`&lt;br&gt;• &lt;b&gt;SSE Protocol:&lt;/b&gt; Heartbeat 15s, Event Reconnect ID&lt;br&gt;• &lt;b&gt;Observability:&lt;/b&gt; Inject X-Trace-Id Header &amp;amp; RFC 9457 Errors" vertex="1">
+          <mxGeometry height="310" width="380" x="540" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="integration_layer" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Core Integration Layer (ielts_agent.core)&lt;/b&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;• &lt;b&gt;LLMClient:&lt;/b&gt; Async calls, Timeout ≤20s, Retry ≤2 with backoff/jitter, Fallback provider switch, Anthropic Prompt Caching (IF-3.1..3.5)&lt;br&gt;• &lt;b&gt;QdrantClient:&lt;/b&gt; gRPC :6334, Cosine ≥0.70, k=3 (IF-4)&lt;br&gt;• &lt;b&gt;GrammarClient:&lt;/b&gt; LanguageTool HTTP POST (IF-5)&lt;br&gt;• &lt;b&gt;StorageClient:&lt;/b&gt; S3 Presigned URL Gen ≤15m (IF-6.3)&lt;br&gt;• &lt;b&gt;DB Adapters:&lt;/b&gt; AsyncPG (PostgreSQL) &amp;amp; Redis Client" vertex="1">
+          <mxGeometry height="250" width="380" x="540" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="scheduler" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Scheduler &amp;amp; Cron Background Workers&lt;/b&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;• Batch Regression Eval on Gold Set (AI-OPS-2)&lt;br&gt;• Daily Token Cost Accounting ($50 limit cap)&lt;br&gt;• Data Purge Cron: Xóa dữ liệu bài &amp;gt;90 ngày (CMP-7)" vertex="1">
+          <mxGeometry height="130" width="380" x="540" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="box_langgraph" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#6D28D9;strokeWidth=2;fontColor=#6D28D9;fontSize=15;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;dashed=1;" value="&lt;b&gt;3. LangGraph Execution Pipeline (graph-runtime)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="1950" width="2020" x="1000" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n1" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FEE2E2;strokeColor=#B91C1C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;N1 · Input Guard (Pure Code Guardrail)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Code thuần — Không tốn LLM API Token&lt;/i&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;1. Đếm từ chuẩn khảo thí IELTS Word Count (FR-1.3)&lt;br&gt;2. Nếu &amp;lt;50% ngưỡng từ → Từ chối INVALID_LENGTH (FR-1.5)&lt;br&gt;3. Nếu dưới ngưỡng nhưng ≥50% → Đánh dấu under_length = true, thêm ScoreCap(TA/TR max 5.0) (FR-1.4)&lt;br&gt;4. Sanitize NFKC, zero-width, thẻ hệ thống (FR-1.6)&lt;br&gt;5. Tấn công CRITICAL → Block INJECTION_BLOCKED (FR-1.7)&lt;br&gt;6. Khử PII email/phone/URL → Placeholder [REDACTED] (FR-1.12)&lt;br&gt;7. Tách đoạn Paragraphs &amp;amp; Giữ Offset raw_essay (FR-1.9/1.10)&lt;br&gt;Out: Initial AgentState" vertex="1">
+          <mxGeometry height="230" width="420" x="1230" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="node_reject" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FEE2E2;strokeColor=#B91C1C;strokeWidth=2;fontColor=#0F172A;fontSize=11;align=center;" value="&lt;b&gt;REJECTED STATE (HTTP 400 / SSE error)&lt;/b&gt;&lt;br&gt;• INVALID_INPUT · INVALID_LENGTH&lt;br&gt;• UNSUPPORTED_LANGUAGE · INJECTION_BLOCKED&lt;br&gt;&lt;i&gt;(Dừng Pipeline lập tức — Không tiêu tốn token API)&lt;/i&gt;" vertex="1">
+          <mxGeometry height="100" width="420" x="1040" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n2" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;N2 · Coordinator Agent&lt;/b&gt;&lt;br&gt;&lt;i&gt;Model: Claude Haiku 4.5 · Temp = 0.0&lt;/i&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;• Phân loại TASK_1_ACADEMIC / TASK_2 (FR-2.1)&lt;br&gt;• Nếu Confidence &amp;lt; 0.7 → Tạm dừng hỏi lại User&lt;br&gt;• Lập Kế hoạch Phân bổ Rubric 4 tiêu chí&lt;br&gt;Out: EvaluationPlan" vertex="1">
+          <mxGeometry height="230" width="400" x="1800" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n2b" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;N2b · Visual Data Extractor&lt;/b&gt;&lt;br&gt;&lt;i&gt;Model: Claude Sonnet 5 (Multimodal) · Temp = 0.0&lt;/i&gt;&lt;br&gt;──────────────────────────────────────────&lt;br&gt;• Chỉ chạy khi Task 1 Academic có Ảnh&lt;br&gt;• Đọc Presigned URL từ MinIO/S3 (FR-2.8)&lt;br&gt;• Trích xuất dạng biểu đồ, cực trị, xu hướng, đơn vị&lt;br&gt;Out: VisualFacts" vertex="1">
+          <mxGeometry height="230" width="400" x="2460" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="fan_out" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#6D28D9;strokeWidth=2;fontColor=#0F172A;fontSize=11;align=center;" value="&lt;b&gt;Fan-out Parallel Execution Barrier:&lt;/b&gt; LangGraph Send(evaluator, EvaluatorInput) × 4 — Mỗi Evaluator chỉ nhận Slices State cô lập của riêng mình (FR-2.2 / FR-2.3)" vertex="1">
+          <mxGeometry height="40" width="1920" x="1040" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n3a" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;N3a · TA / TR Evaluator&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sonnet 5 · Temp = 0.1&lt;/i&gt;&lt;br&gt;──────────────────────────────&lt;br&gt;• TA (Task 1): Check overview (FR-2.10), đối chiếu VisualFacts (FR-2.9)&lt;br&gt;• TR (Task 2): Check bao phủ vế đề (FR-2.11), lập trường&lt;br&gt;• Check Off-topic (FR-2.12) → sub_score ≤ 2.0&lt;br&gt;• Tool Call: `retrieve_exemplars` (FR-3.1)&lt;br&gt;Out: CriterionScore" vertex="1">
+          <mxGeometry height="220" width="450" x="1040" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n3b" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;N3b · CC Evaluator&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sonnet 5 · Temp = 0.1&lt;/i&gt;&lt;br&gt;──────────────────────────────&lt;br&gt;• Mạch lạc &amp;amp; Liên kết (Coherence &amp;amp; Cohesion)&lt;br&gt;• Đánh giá phân đoạn &amp;amp; Phương tiện liên kết&lt;br&gt;• Sử dụng danh sách Paragraphs từ N1&lt;br&gt;• Pure LLM Reasoning (Không gọi Tool ngoài)&lt;br&gt;&lt;br&gt;Out: CriterionScore" vertex="1">
+          <mxGeometry height="220" width="450" x="1530" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n3c" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;N3c · LR Evaluator&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sonnet 5 · Temp = 0.1&lt;/i&gt;&lt;br&gt;──────────────────────────────&lt;br&gt;• Vốn từ vựng (Lexical Resource)&lt;br&gt;• Tính % AWL, Type-Token Ratio (TTR), Từ C1/C2 (FR-3.5)&lt;br&gt;• Bắt lỗi Collocation, Chính tả, Từ dùng sai&lt;br&gt;• Tool Call: `lookup_vocabulary` (FR-3.4)&lt;br&gt;Out: CriterionScore" vertex="1">
+          <mxGeometry height="220" width="450" x="2020" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n3d" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;N3d · GRA Evaluator&lt;/b&gt;&lt;br&gt;&lt;i&gt;Sonnet 5 · Temp = 0.1&lt;/i&gt;&lt;br&gt;──────────────────────────────&lt;br&gt;• Ngữ pháp &amp;amp; Độ chính xác (GRA)&lt;br&gt;• Phân tích câu đơn/phức, thì, dấu câu&lt;br&gt;• Tool Call: `check_grammar` (LanguageTool)&lt;br&gt;• Thẩm định giữ/bỏ ứng viên lỗi + ghi lý do (FR-3.6)&lt;br&gt;Out: CriterionScore" vertex="1">
+          <mxGeometry height="220" width="450" x="2510" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="fan_in" parent="1" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#6D28D9;strokeWidth=2;fontColor=#0F172A;fontSize=11;align=center;" value="&lt;b&gt;Fan-in Reducer Barrier:&lt;/b&gt; Merge 4 CriterionScores vào State. Phát SSE event `criterion_completed` ngay khi từng Node hoàn tất (IF-2.4)" vertex="1">
+          <mxGeometry height="40" width="1920" x="1040" y="890" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n4" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#B45309;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;N4 · Multi-Agent Verifier Node&lt;/b&gt;&lt;br&gt;&lt;i&gt;Model: Claude Opus 5 · Temp = 0.0 · Effort Cao&lt;/i&gt;&lt;br&gt;──────────────────────────────────────────────────────────────────────────────────────────&lt;br&gt;1. Xác thực Verbatim Evidence Quotes có sẵn trên `raw_essay` (FR-4.1). Bị đặt → FABRICATED_EVIDENCE.&lt;br&gt;2. Bắt mâu thuẫn Score-Rationale Mismatch (FR-4.2) &amp;amp; Phân tán điểm bất thường &amp;gt; 2.5 band (FR-4.3).&lt;br&gt;3. Áp dụng trần điểm ScoreCaps: under_length, missing overview, incomplete response, off-topic (FR-4.8).&lt;br&gt;4. Làm tròn điểm Task 0.5 band theo công thức Cambridge (FR-4.6).&lt;br&gt;5. Tính Overall Writing Band = (Task1 + 2*Task2)/3 (FR-4.7).&lt;br&gt;6. Ràng buộc: KHÔNG tự ý sửa điểm chủ quan (FR-4.11). Nếu mâu thuẫn &amp;amp; revision_count &amp;lt; 2 → Trigger Re-eval Loop.&lt;br&gt;Out: VerificationReport" vertex="1">
+          <mxGeometry height="240" width="620" x="1040" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="node_n5" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#15803D;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;N5 · Tutor Agent (Pedagogical Feedback Generator)&lt;/b&gt;&lt;br&gt;&lt;i&gt;Model: Claude Opus 5 · Temp = 0.3 · Streaming via SSE (FR-5.7)&lt;/i&gt;&lt;br&gt;──────────────────────────────────────────────────────────────────────────────────────────&lt;br&gt;• Định vị ErrorSpans (start_char, end_char, error_type) ≤15 lỗi top (FR-5.1/5.9)&lt;br&gt;• Phân loại lỗi theo Closed Taxonomy (GRAMMAR, SPELLING, WORD_CHOICE...) (FR-5.2)&lt;br&gt;• Đề xuất 3–8 câu viết lại Band 8.0+ (FR-5.3), bảo toàn ý định tác giả (FR-5.4)&lt;br&gt;• Lập Actionable Plan: Đúng 3 lời khuyên cải thiện, gắn liền evidence quotes (FR-5.5/5.6)&lt;br&gt;• Xuất phản hồi Song ngữ Vi/En linh hoạt (FR-5.8)&lt;br&gt;Out: TutorFeedback (Streamed to client)" vertex="1">
+          <mxGeometry height="240" width="620" x="1705" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="node_finalize" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#475569;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;Finalize &amp;amp; Persist&lt;/b&gt;&lt;br&gt;• 1 Transaction PostgreSQL 16 (IF-6.1)&lt;br&gt;• Cập nhật status COMPLETED&lt;br&gt;• Đánh cờ needs_human_review nếu aggregate_confidence &amp;lt; 0.6 (FR-4.10)&lt;br&gt;• Emit event `completed` qua SSE" vertex="1">
+          <mxGeometry height="140" width="320" x="2370" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="node_end" parent="1" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#15803D;strokeWidth=2;fontColor=#0F172A;fontSize=12;align=center;" value="&lt;b&gt;END PIPELINE&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="180" x="2530" y="1180" as="geometry" />
+        </mxCell>
+        <mxCell id="info_rules" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Bảng quy tắc nghiệp vụ bất biến (Business Rules):&lt;/b&gt;&lt;br&gt;1. &lt;b&gt;IELTS Word Count:&lt;/b&gt; Task 1 ≥ 150 từ | Task 2 ≥ 250 từ. Dưới ngưỡng → ScoreCap(TA/TR max 5.0). &amp;lt;50% ngưỡng → REJECTED.&lt;br&gt;2. &lt;b&gt;Task 1 Academic Rules:&lt;/b&gt; Thiếu Overview → TA max 5.0. Bị đặt số liệu → Lỗi FACTUAL_INACCURACY.&lt;br&gt;3. &lt;b&gt;Task 2 Rules:&lt;/b&gt; Bỏ sót vế đề bài → TR max 5.0. Lạc đề (Off-topic) → TR/TA sub_score ≤ 2.0.&lt;br&gt;4. &lt;b&gt;Overall Score Weight:&lt;/b&gt; Overall Writing Band = (Task 1 + 2 × Task 2) / 3, làm tròn bước 0.5 theo quy tắc Cambridge (.25 lên .5, .75 lên 1.0)." vertex="1">
+          <mxGeometry height="140" width="920" x="1040" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="info_guardrails" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B91C1C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=10;spacingTop=8;" value="&lt;b&gt;Guardrails &amp;amp; System Limits (OWASP Top 10 for LLM):&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Tool Call Limit:&lt;/b&gt; Max 5 calls / Evaluator (FR-3.8). Timeout Vector DB = 2s, Grammar = 3s → grounded = false (FR-3.9)&lt;br&gt;• &lt;b&gt;Re-eval Loop Limit:&lt;/b&gt; Max revision_count = 2 (FR-4.5). recursion_limit = 25.&lt;br&gt;• &lt;b&gt;Resource Cap:&lt;/b&gt; Max 60,000 tokens / run (AI-GRD-6). Max $50 USD / month (C5).&lt;br&gt;• &lt;b&gt;Schema Protection:&lt;/b&gt; Max 1 repair prompt on Pydantic ValidationError (AI-GRD-2)." vertex="1">
+          <mxGeometry height="140" width="960" x="2000" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="box_external" parent="1" style="rounded=1;arcSize=2;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#C2410C;strokeWidth=2;fontColor=#C2410C;fontSize=15;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;dashed=1;" value="&lt;b&gt;4. External Infrastructure, APIs &amp;amp; Datastores&lt;/b&gt;" vertex="1">
+          <mxGeometry height="1950" width="480" x="3380" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_llm_primary" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;Primary LLM Provider (Anthropic API)&lt;/b&gt;&lt;br&gt;• Claude Haiku 4.5 · Claude Sonnet 5 · Claude Opus 5&lt;br&gt;• HTTPS / JSON Schema Structured Output&lt;br&gt;• Prompt Caching Enabled (IF-3.4)" vertex="1">
+          <mxGeometry height="100" width="400" x="3400" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_llm_backup" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;dashed=1;dashPattern=8 5;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;Backup LLM Provider (Fallback)&lt;/b&gt;&lt;br&gt;• Cấu hình qua LLMClient (IF-3.1 / NFR-AVL-5)&lt;br&gt;• Kích hoạt khi Primary bị 429 / Timeout / 5xx" vertex="1">
+          <mxGeometry height="80" width="400" x="3400" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_qdrant" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;Qdrant Vector DB (Self-host Docker)&lt;/b&gt;&lt;br&gt;• Collection: `exemplars` (≥60 bài Band 8.0+) (AI-DAT-1)&lt;br&gt;• Filter: `task_type` → Cosine Similarity ≥ 0.70, k = 3&lt;br&gt;• gRPC :6334 / HTTP :6333 · Timeout 2s (IF-4)" vertex="1">
+          <mxGeometry height="100" width="400" x="3400" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_awl" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;AWL &amp;amp; CEFR Lexicon Database (Local)&lt;/b&gt;&lt;br&gt;• 570 Academic Word List Headwords (Coxhead)&lt;br&gt;• Thang phân bậc CEFR A1-C2 Local Lookup Table&lt;br&gt;• Độ trễ &amp;lt; 50ms (FR-3.4)" vertex="1">
+          <mxGeometry height="90" width="400" x="3400" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_languagetool" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;LanguageTool Service (Self-host Docker)&lt;/b&gt;&lt;br&gt;• HTTP POST /v2/check (en-GB / en-US)&lt;br&gt;• Timeout 3s · Trả về candidate errors (IF-5)&lt;br&gt;• GRA Evaluator tự thẩm định giữ/bỏ (FR-3.6)" vertex="1">
+          <mxGeometry height="100" width="400" x="3400" y="590" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_storage" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;MinIO / S3 Object Storage&lt;/b&gt;&lt;br&gt;• Lưu ảnh Task 1 Academic ≤ 5MB, Strip EXIF&lt;br&gt;• Truy cập qua Presigned URL ≤ 15 phút (IF-6.3)" vertex="1">
+          <mxGeometry height="90" width="400" x="3400" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_postgres" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;PostgreSQL 16 Database&lt;/b&gt;&lt;br&gt;• Tables: Submissions, CriterionScores, VerificationReports, Disputes, TokenCosts, AuditLogs&lt;br&gt;• Single Atomic Transaction (IF-6.1)" vertex="1">
+          <mxGeometry height="100" width="400" x="3400" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_redis" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;Redis 7 (In-Memory State &amp;amp; Pub/Sub)&lt;/b&gt;&lt;br&gt;• Rate Limiting Sliding Window (NFR-SEC-6)&lt;br&gt;• Idempotency Keys 24h (IF-1.2)&lt;br&gt;• LangGraph Checkpointer State Storage&lt;br&gt;• SSE Pub/Sub Broker cho Multi-replica API" vertex="1">
+          <mxGeometry height="110" width="400" x="3400" y="940" as="geometry" />
+        </mxCell>
+        <mxCell id="ext_observability" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=#FFEDD5;strokeColor=#C2410C;strokeWidth=2;fontColor=#0F172A;fontSize=11;verticalAlign=top;align=left;spacingLeft=8;spacingTop=8;" value="&lt;b&gt;Observability Stack (LangSmith / OTel / Prom)&lt;/b&gt;&lt;br&gt;• Trace ID = X-Trace-Id (NFR-OBS-2)&lt;br&gt;• Prometheus Metrics: token count, cost, latency p95&lt;br&gt;• Structural JSON Logs (NFR-OBS-1)" vertex="1">
+          <mxGeometry height="90" width="400" x="3400" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_box" parent="1" style="rounded=1;arcSize=3;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748B;strokeWidth=2;fontColor=#64748B;fontSize=12;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;" value="&lt;b&gt;Chú thích Quy ước Ký hiệu &amp;amp; Màu sắc Sơ đồ Kiến trúc&lt;/b&gt;" vertex="1">
+          <mxGeometry height="180" width="1920" x="1040" y="1750" as="geometry" />
+        </mxCell>
+        <mxCell id="legend_text" parent="1" style="text;html=1;align=left;verticalAlign=top;whiteSpace=nowrap;fontSize=11;fontColor=#0F172A;" value="■ &lt;font color=&quot;#2563EB&quot;&gt;&lt;b&gt;Xanh dương:&lt;/b&gt;&lt;/font&gt; Tác nhân Người dùng (Actors) &amp;amp; Node LangGraph sử dụng LLM Suy luận (Coordinator, Visual Extractor, Evaluators) &lt;br&gt;■ &lt;font color=&quot;#B91C1C&quot;&gt;&lt;b&gt;Đỏ / Hồng:&lt;/b&gt;&lt;/font&gt; Code thuần Guardrail (Input Guard, Pure Regex/Rule-based, Rejected State) — Không tiêu tốn LLM Token API&lt;br&gt;■ &lt;font color=&quot;#B45309&quot;&gt;&lt;b&gt;Vàng Cam:&lt;/b&gt;&lt;/font&gt; Multi-Agent Verifier Node (Claude Opus 5 Effort cao) &amp;amp; Hạ tầng Cơ sở dữ liệu / Công cụ ngoại vi (Datastores / Tools)&lt;br&gt;■ &lt;font color=&quot;#15803D&quot;&gt;&lt;b&gt;Xanh lá:&lt;/b&gt;&lt;/font&gt; Tutor Agent (Sinh phản hồi sư phạm Streaming) &amp;amp; Điểm kết thúc Pipeline thành công (END PIPELINE)&lt;br&gt;■ &lt;font color=&quot;#6D28D9&quot;&gt;&lt;b&gt;Tím:&lt;/b&gt;&lt;/font&gt; Điều khiển đồ thị luồng LangGraph (Parallel Fan-out barrier &amp;amp; Fan-in Reducer barrier merge state)&lt;br&gt;─── Mũi tên nét liền: Luồng dữ liệu chính đi qua pipeline · - - - Mũi tên nét đứt: Luồng dự phòng / Re-eval Loop khi Verifier phát hiện mâu thuẫn điểm số" vertex="1">
+          <mxGeometry height="140" width="1880" x="1050" y="1780" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_learner_ui" edge="1" parent="1" source="actor_learner" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="web_ui" value="HTTPS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_admin_ui" edge="1" parent="1" source="actor_admin" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="web_ui" value="HTTPS">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_ui_gateway" edge="1" parent="1" source="web_ui" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="api_gateway" value="HTTPS REST / SSE Stream">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_gw_n1" edge="1" parent="1" source="api_gateway" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="node_n1" value="Start Graph (AgentState)">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_gw_integration" edge="1" parent="1" source="api_gateway" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="integration_layer" value="Call Core Methods">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_sched_core" edge="1" parent="1" source="scheduler" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="integration_layer" value="Run Batch Eval Jobs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_n1_reject" edge="1" parent="1" source="node_n1" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#B91C1C;strokeWidth=2;fontSize=11;" target="node_reject" value="Invalid / Severe Under-length / Injection">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_n1_n2" edge="1" parent="1" source="node_n1" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="node_n2" value="Valid Essay State">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_n2_n2b" edge="1" parent="1" source="node_n2" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="node_n2b" value="Task 1 Academic + Image">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_n2_fanout" edge="1" parent="1" source="node_n2" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="fan_out" value="Task 2 / No Image">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1720" y="480" />
+              <mxPoint x="1520" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_n2b_fanout" edge="1" parent="1" source="node_n2b" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="fan_out" value="VisualFacts Extracted">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2180" y="480" />
+              <mxPoint x="2480" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_fo_3a" edge="1" parent="1" source="fan_out" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="node_n3a" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_fo_3b" edge="1" parent="1" source="fan_out" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="node_n3b" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_fo_3c" edge="1" parent="1" source="fan_out" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="node_n3c" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_fo_3d" edge="1" parent="1" source="fan_out" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="node_n3d" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3a_fi" edge="1" parent="1" source="node_n3a" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="fan_in" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3b_fi" edge="1" parent="1" source="node_n3b" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="fan_in" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3c_fi" edge="1" parent="1" source="node_n3c" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="fan_in" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_3d_fi" edge="1" parent="1" source="node_n3d" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#6D28D9;strokeWidth=2;" target="fan_in" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_fi_n4" edge="1" parent="1" source="fan_in" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="node_n4" value="Merge 4 Scores">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_n4_n5" edge="1" parent="1" source="node_n4" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;exitX=0.797;exitY=0.993;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.187;entryY=1.025;entryDx=0;entryDy=0;entryPerimeter=0;" target="node_n5" value="Approved OR revision_count == 2">
+          <mxGeometry relative="1" x="-0.1261" y="4" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="1690" y="1250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_n5_fin" edge="1" parent="1" source="node_n5" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;fontSize=11;" target="node_finalize" value="Stream Done">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2380" y="1160" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_fin_end" edge="1" parent="1" source="node_finalize" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#334155;strokeWidth=2;" target="node_end" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_reeval" edge="1" parent="1" source="node_n4" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#B45309;strokeWidth=2;dashed=1;dashPattern=6 4;fontSize=11;" target="fan_out" value="Conflict &amp;amp; revision_count &amp;lt; 2 (Re-eval targeted criteria)">
+          <mxGeometry relative="1" x="-0.3824" y="30" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="960" y="1090" />
+              <mxPoint x="960" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_int_llm_pri" edge="1" parent="1" source="integration_layer" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;fontSize=11;" target="ext_llm_primary" value="LLMClient.call() → HTTPS / JSON Output">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="960" y="605" />
+              <mxPoint x="960" y="30" />
+              <mxPoint x="3050" y="30" />
+              <mxPoint x="3050" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_int_llm_sec" edge="1" parent="1" source="integration_layer" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;dashed=1;dashPattern=6 4;fontSize=11;" target="ext_llm_backup" value="LLMClient.call_fallback() → 429/Timeout Fallback">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="975" y="605" />
+              <mxPoint x="975" y="50" />
+              <mxPoint x="3065" y="50" />
+              <mxPoint x="3065" y="300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_n2b_minio" edge="1" parent="1" source="node_n2b" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;fontSize=11;" target="ext_storage" value="StorageClient.get_presigned_url() → S3 Download">
+          <mxGeometry relative="1" x="-0.1651" as="geometry">
+            <mxPoint x="-1" as="offset" />
+            <Array as="points">
+              <mxPoint x="2180" y="390" />
+              <mxPoint x="3080" y="390" />
+              <mxPoint x="3080" y="755" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_3a_qdrant" edge="1" parent="1" source="node_n3a" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;dashed=1;dashPattern=6 4;fontSize=11;" target="ext_qdrant" value="QdrantClient.search_exemplars() → gRPC :6334">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1265" y="860" />
+              <mxPoint x="1265" y="1260" />
+              <mxPoint x="3170" y="1260" />
+              <mxPoint x="3170" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_3c_awl" edge="1" parent="1" source="node_n3c" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;dashed=1;dashPattern=6 4;fontSize=11;" target="ext_awl" value="LexiconClient.lookup_awl_cefr() → Local Fast Hash">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2245" y="860" />
+              <mxPoint x="2245" y="1190" />
+              <mxPoint x="3065" y="1190" />
+              <mxPoint x="3065" y="525" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_3d_lt" edge="1" parent="1" source="node_n3d" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;dashed=1;dashPattern=6 4;fontSize=11;" target="ext_languagetool" value="GrammarClient.check_spelling() → HTTP POST /v2/check">
+          <mxGeometry relative="1" x="0.0972" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="2735" y="860" />
+              <mxPoint x="2735" y="1210" />
+              <mxPoint x="3130" y="1210" />
+              <mxPoint x="3130" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_int_postgres" edge="1" parent="1" source="integration_layer" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;fontSize=11;" target="ext_postgres" value="AsyncPG.execute() → TCP :5432 SQL Transaction">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="990" y="605" />
+              <mxPoint x="990" y="1300" />
+              <mxPoint x="3240" y="1290" />
+              <mxPoint x="3240" y="870" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_int_redis" edge="1" parent="1" source="integration_layer" style="html=1;rounded=0;endArrow=block;endFill=1;startArrow=block;startFill=1;strokeColor=#C2410C;strokeWidth=2;fontSize=11;" target="ext_redis" value="RedisClient.set() / publish() → TCP :6379 RESP">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1010" y="605" />
+              <mxPoint x="1010" y="1360" />
+              <mxPoint x="3330" y="1340" />
+              <mxPoint x="3330" y="995" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_int_obs" edge="1" parent="1" source="integration_layer" style="html=1;rounded=0;endArrow=block;endFill=1;strokeColor=#C2410C;strokeWidth=2;fontSize=11;" target="ext_observability" value="OTelExporter.emit_spans() → Tracing &amp;amp; Metrics">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1030" y="605" />
+              <mxPoint x="1030" y="1410" />
+              <mxPoint x="3130" y="1400" />
+              <mxPoint x="3600" y="1400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
